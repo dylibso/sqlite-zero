@@ -79,7 +79,20 @@ public class LibSqlite {
 
     public String errmsg() {
         var errPtr = errmsg.apply(Value.i32(getDbPtr()))[0].asInt();
-        return instance.memory().readCString(errPtr);
+        return readCString(errPtr);
+    }
+
+    // TODO can replace in next chicory release
+    private String readCString(int ptr) {
+        var mem = instance.memory();
+        int c = ptr;
+        while (mem.read(c) != '\0') { c++; }
+        return mem.readString(ptr, c - ptr);
+    }
+
+    // TODO can replace in next chicory release
+    private void writeCString(int ptr, String s) {
+        instance.memory().writeString(ptr, s + '\0');
     }
 
     private int getDbPtr() {
@@ -93,7 +106,7 @@ public class LibSqlite {
 
     public int allocCString(String s) {
         var ptr = malloc(s.length());
-        this.instance.memory().writeCString(ptr, s);
+        writeCString(ptr, s);
         return ptr;
     }
 
@@ -119,10 +132,10 @@ public class LibSqlite {
                     for (int i = 0; i < argc; i++) {
                         var colNamePtr =
                                 instance.memory().readI32(azColName + (i * 4)).asInt();
-                        var colName = instance.memory().readCString(colNamePtr);
+                        var colName = readCString(colNamePtr);
                         var argvPtr =
                                 instance.memory().readI32(argv + (i * 4)).asInt();
-                        var value = instance.memory().readCString(argvPtr);
+                        var value = readCString(argvPtr);
                         results.addProperty(colName, value);
                     }
                     results.finishRow();

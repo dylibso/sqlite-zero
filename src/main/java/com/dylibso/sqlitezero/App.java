@@ -17,7 +17,7 @@ public class App
         var db = new Database(databasePath).open();
         var results = new SqlResults<Track>();
         var sql = """
-                select TrackId, Name, Composer from track where Composer like '%opensesame%';
+                SELECT TrackId, Name, Composer FROM track WHERE Composer LIKE '%Glass%';
                 """;
         db.exec(sql, results);
         var rows = results.cast(Track.class);

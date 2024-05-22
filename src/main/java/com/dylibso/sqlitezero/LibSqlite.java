@@ -1,6 +1,5 @@
 package com.dylibso.sqlitezero;
 
-import com.dylibso.chicory.log.Logger;
 import com.dylibso.chicory.log.SystemLogger;
 import com.dylibso.chicory.runtime.*;
 import com.dylibso.chicory.runtime.Module;
@@ -10,7 +9,6 @@ import com.dylibso.chicory.wasm.types.Value;
 import com.dylibso.chicory.wasm.types.ValueType;
 
 import java.nio.file.Path;
-import java.sql.SQLInput;
 import java.util.List;
 
 public class LibSqlite {

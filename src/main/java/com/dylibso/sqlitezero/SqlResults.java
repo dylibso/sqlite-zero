@@ -22,6 +22,10 @@ public class SqlResults<T> {
         thisRow = new SqlRow<>();
     }
 
+    public List<SqlRow<T>> getRows() {
+        return rows;
+    }
+
     public List<T> cast(Class<T> clazz) {
         return rows.stream().map(
                 r -> {

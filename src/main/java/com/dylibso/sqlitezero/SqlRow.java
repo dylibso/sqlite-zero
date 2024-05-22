@@ -11,6 +11,10 @@ public class SqlRow<T> {
         object = new HashMap<>();
     }
 
+    public HashMap<String, String> getObject() {
+        return object;
+    }
+
     public void addProperty(String c, String v) {
         object.put(c, v);
     }

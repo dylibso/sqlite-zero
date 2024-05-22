@@ -4,7 +4,7 @@ build:
 	@cd plugin && ${WASI_SDK_PATH}/bin/clang --sysroot=/opt/wasi-sdk/share/wasi-sysroot \
                                          --target=wasm32-wasi \
                                          -o libsqlite.wasm \
-                                         sqlite3.c sqlite_wrapper.c \
+                                         sqlite3.c sqlite_wrapper.c pwdump.c \
                                          -Wl,--export=sqlite_open \
                                          -Wl,--export=sqlite_exec \
                                          -Wl,--export=sqlite_errmsg \

@@ -1,5 +1,6 @@
 package com.dylibso.sqlitezero;
 
+import com.dylibso.chicory.aot.AotMachine;
 import com.dylibso.chicory.log.SystemLogger;
 import com.dylibso.chicory.runtime.*;
 import com.dylibso.chicory.runtime.Module;
@@ -50,8 +51,12 @@ public class LibSqlite {
         System.arraycopy(extra, 0, allImports, wasiFuncs.length, extra.length);
 
         var imports = new HostImports(allImports);
-        var module = Module.builder("./libsqlite.wasm").withLogger(new SystemLogger()).build();
-        this.instance = module.withHostImports(imports).instantiate();
+        var module = Module.builder("./libsqlite.wasm")
+                .withLogger(new SystemLogger())
+                .withHostImports(imports)
+                .withMachineFactory(instance -> new AotMachine(instance))
+                .build();
+        this.instance = module.instantiate();
         this.realloc = instance.export("realloc");
         this.open = instance.export("sqlite_open");
         this.exec = instance.export("sqlite_exec");

@@ -10,6 +10,8 @@ build:
                                          -Wl,--export=sqlite_errmsg \
                                          -Wl,--export=realloc \
                                          -Wl,--allow-undefined \
-                                         -Wl,--no-entry && cd ..
+                                         -Wl,--no-entry \
+                                          -Oz \
+                                          && cd ..
 	@mv plugin/libsqlite.wasm src/main/resources
 	@mvn clean install

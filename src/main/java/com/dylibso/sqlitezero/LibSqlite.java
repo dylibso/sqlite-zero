@@ -11,6 +11,8 @@ import com.dylibso.chicory.wasm.types.ValueType;
 
 import java.nio.file.Path;
 import java.util.List;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 
 public class LibSqlite {
 
@@ -30,6 +32,9 @@ public class LibSqlite {
 
     public LibSqlite(WasiOptions wasiOpts) {
         var logger = new SystemLogger();
+        var chicoryLogger = Logger.getLogger("chicory");
+        chicoryLogger.setLevel(Level.WARNING);
+
         var wasi = new WasiPreview1(logger, wasiOpts);
         var extra =
                 new HostFunction[] {

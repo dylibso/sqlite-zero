@@ -60,6 +60,14 @@ class Flower {
 }
 ```
 
+## Speed Tip
+
+To make the AOT runtime a little faster, try setting this option:
+
+```
+export MAVEN_OPTS="-XX:-DontCompileHugeMethods"
+```
+
 ## Compiling
 
 This package uses [maven](https://maven.apache.org/).
